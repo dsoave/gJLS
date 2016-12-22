@@ -1,6 +1,6 @@
 Package: gJLS
 Type: Package
-Title: Joint Location Scale (JLS) Test
+Title: Generalized Joint Location Scale (gJLS) Test
 Version: 0.1.0
 Author: David Soave <david.soave@mail.utoronto.ca>
 Maintainer: David Soave <david.soave@mail.utoronto.ca>

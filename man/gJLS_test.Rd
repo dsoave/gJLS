@@ -2,7 +2,7 @@
 % Please edit documentation in R/gJLS_test.R
 \name{gJLS_test}
 \alias{gJLS_test}
-\title{Joint Location Scale (JLS) Test}
+\title{Generalized Joint Location Scale (gJLS) Test}
 \usage{
 gJLS_test(y, x.loc, x.scale)
 }
@@ -63,5 +63,5 @@ David Soave
 \references{
 Soave, D., Corvol, H., Panjwani, N., Gong, J., Li, W., Boelle, P.Y., Durie, P.R., Paterson, A.D., Rommens, J.M., Strug, L.J., and Sun, L. (2015). A Joint Location-Scale Test Improves Power to Detect Associated SNPs, Gene Sets, and Pathways. American journal of human genetics 97, 125-138.
 }
-\keyword{JLS}
+\keyword{gJLS}
 

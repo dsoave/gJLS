@@ -1,10 +1,10 @@
-#' Joint Location Scale (JLS) Test
+#' Generalized Joint Location Scale (gJLS) Test
 #'
 #' This function performs the Joint Location Scale (JLS) test (Soave et al. 2015) to simultaneously test for mean and variance differences between groups.  The JLS test uses Fisher's combined p-value method to combine evidence from the individual locaiton (regression t-test) and scale (Levene's test of homogeneity of variances) tests.
 #' @param y a qunatitative outcome variable
 #' @param x.loc a design matrix (or vector) for the location model
 #' @param x.scale a design matrix (or vector) for the scale model
-#' @keywords JLS
+#' @keywords gJLS
 #' @export
 #' @author David Soave
 #' @import quantreg
