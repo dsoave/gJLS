@@ -47,7 +47,7 @@
 
 
 #Note that p_S is obtained using a stage 1 median regression (rq function, tau=0.5) where group medians are chosen to be the larger of two middle values when the group size is even.
-JLS_test <-function(y,x.loc,x.scale){
+gJLS_test <-function(y,x.loc,x.scale){
 
   ## check if there is missing data
   data <- cbind(y, x.loc,x.scale)

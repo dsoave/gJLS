@@ -1,4 +1,4 @@
-Package: JLS
+Package: gJLS
 Type: Package
 Title: Joint Location Scale (JLS) Test
 Version: 0.1.0
@@ -10,5 +10,5 @@ License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Imports: quantreg
-URL: http://github.com/dsoave/JLS
-BugReports: http://github.com/dsoave/JLS/issues
+URL: http://github.com/dsoave/gJLS
+BugReports: http://github.com/dsoave/gJLS/issues
