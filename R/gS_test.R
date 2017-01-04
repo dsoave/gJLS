@@ -7,8 +7,8 @@
 #' @keywords gS
 #' @export
 #' @author David Soave
-#' @import quantreg
 #' @import nlme
+#' @import quantreg
 #' @details No missing data are allowed - function will return an "error".  Absolute residuals, are estimated using least absolute deviation (LAD) regression. Outcome (phenotype) must be quantitative and covariate (genotype) may be discrete (categorical) or continuous.
 #' @return gS_F the gS test statistic
 #' @return numDF the gS test statistic numerator degrees of freedom
@@ -65,7 +65,7 @@ gS_test <-function(model, data, correlation=NULL){
     aovfit <- anova(lm(model2,data=data))
     gS_F<-aovfit[1,4];numDF<-aovfit[1,1];denDF<-aovfit[2,1];gS_p<-aovfit[1,5]
   } else {
-    fit<-nlme::gls(model2,data=data,correlation= correlation,method="ML",control=lmeControl(opt = "optim"))
+    fit<-gls(model2,data=data,correlation= correlation,method="ML",control=lmeControl(opt = "optim"))
     aovfit<-anova(fit,Terms=2:dim(anova(fit))[1])
     gS_F<-aovfit[1,2];numDF<-aovfit[1,1];denDF<-fit$dims$N-fit$dims$p;gS_p<-aovfit[1,3]
   }

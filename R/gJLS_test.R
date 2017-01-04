@@ -7,6 +7,7 @@
 #' @keywords gJLS
 #' @export
 #' @author David Soave
+#' @import nlme
 #' @import quantreg
 #' @details No missing data are allowed - function will return an "error".  Absolute residuals, used in Levene's test (1960), are estimated using least absolute deviation (LAD) regression. LAD residuals correspond to deviations from group medians in the presence of a single categorical covariate. Outcome (phenotype) must be quantitative and covariate (genotype) must be discrete (categorical).
 #' @return p_L the location test (regression t-test) p-value
