@@ -2,7 +2,7 @@
 % Please edit documentation in R/gS_test.R
 \name{gS_test}
 \alias{gS_test}
-\title{Generalized Joint Location Scale (gJLS) Test}
+\title{Generalized Scale (gS) Test}
 \usage{
 gS_test(model, data, correlation = NULL)
 }

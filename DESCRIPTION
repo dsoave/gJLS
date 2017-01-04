@@ -9,6 +9,6 @@ Description: Joint Location Scale (JLS) test to simultaneously test for mean and
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
-Imports: quantreg
+Imports: quantreg, nlme
 URL: http://github.com/dsoave/gJLS
 BugReports: http://github.com/dsoave/gJLS/issues

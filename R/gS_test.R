@@ -1,4 +1,4 @@
-#' Generalized Joint Location Scale (gJLS) Test
+#' Generalized Scale (gS) Test
 #'
 #' This function performs the generalized scale (gS) test (Soave and Sun 2017).  This extension of Levene's (1960) test allows for correlated errors and group uncertainty.
 #' @param model a two-sided linear formula object describing the model, with the response (y) on the left and a ~ operator separating the covariates of interest on the right, separated by + operators.
