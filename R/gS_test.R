@@ -67,7 +67,7 @@ gS_test <-function(model, data, correlation=NULL){
     fit0<-lm(model0, data = data)
     fit<-lm(model2,data=data)
     aovfit<-anova(fit0,fit)
-    gS_F<-aovfit[1,4];numDF<-aovfit[1,1];denDF<-aovfit[2,1];gS_p<-aovfit[1,5]
+    gS_F<-aovfit[2,5];numDF<-aovfit[2,3];denDF<-aovfit[2,1];gS_p<-aovfit[2,6]
   } else {
     fit<-gls(model2,data=data,correlation= correlation,method="ML",control=lmeControl(opt = "optim"))
     aovfit<-anova(fit,Terms=2:dim(anova(fit))[1])
