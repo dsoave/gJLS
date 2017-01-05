@@ -62,7 +62,8 @@ gS_test <-function(model, data, correlation=NULL){
   model2=reformulate(attr(model, "term.labels"),response="d1")
 
   if(is.null(correlation)) {
-    aovfit <- anova(lm(model2,data=data))
+    fit<-lm(model2,data=data)
+    aovfit <- anova(fit,Terms=2:dim(anova(fit))[1])
     gS_F<-aovfit[1,4];numDF<-aovfit[1,1];denDF<-aovfit[2,1];gS_p<-aovfit[1,5]
   } else {
     fit<-gls(model2,data=data,correlation= correlation,method="ML",control=lmeControl(opt = "optim"))
