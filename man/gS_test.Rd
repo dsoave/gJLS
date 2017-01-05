@@ -11,7 +11,7 @@ gS_test(model, data, correlation = NULL)
 
 \item{data}{a data frame containing the variables named in model and correlation arguments.  This is required.}
 
-\item{correlation}{an optional corStruct object describing the within-group correlation structure. See the documentation of corClasses for a description of the available corStruct classes. If a grouping variable is to be used, it must be specified in the form argument to the corStruct constructor. Defaults to NULL, corresponding to uncorrelated errors.}
+\item{correlation}{an optional corStruct object describing the within-group correlation structure. The correlation structure must be called directly from the nlme pacakge using "nlme::" (see examples below). See the documentation of corClasses for a description of the available corStruct classes. If a grouping variable is to be used, it must be specified in the form argument to the corStruct constructor. Defaults to NULL, corresponding to uncorrelated errors.}
 }
 \value{
 gS_F the gS test statistic
@@ -66,6 +66,9 @@ David Soave
 Soave, D., Corvol, H., Panjwani, N., Gong, J., Li, W., Boelle, P.Y., Durie, P.R., Paterson, A.D., Rommens, J.M., Strug, L.J., and Sun, L. (2015). A Joint Location-Scale Test Improves Power to Detect Associated SNPs, Gene Sets, and Pathways. American journal of human genetics 97, 125-138.
 
 Soave, D. and Sun, L. (2017). A Generalized Levene's Scale Test for Variance Heterogeneity in the Presence of Sample Correlation and Group Uncertainty. Biometrics (Accepted).
+}
+\seealso{
+\code{\link{gL_test}}, \code{\link{gJLS_test}}
 }
 \keyword{gS}
 

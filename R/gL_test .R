@@ -1,27 +1,26 @@
-#' Generalized Joint Location Scale (gJLS) Test
+#' Generalized Location (gL) Test
 #'
-#' This function performs the Joint Location Scale (JLS) test (Soave and Sun 2017, Soave et al. 2015) to simultaneously test for mean and variance differences between groups, allowing for correlated errors and group uncertainty.  The gJLS test uses Fisher's combined p-value method to combine evidence from the individual, generalized locaiton (gL) and scale (gS) tests.
-#' @param model.loc a two-sided linear formula object describing the location test model, with the response (y) on the left and a ~ operator separating the covariates of interest on the right, separated by + operators.
-#' @param model.scale a two-sided linear formula object describing the scale test model, with the response (y) on the left and a ~ operator separating the covariates of interest on the right, separated by + operators.
+#' This function performs a generalized location (gL) test (Soave and Sun 2017) using the generalized least squares function, gls(), from the nlme package (Pinheiro and Bates 2000) to allow for correlated errors.
+#' @param model a two-sided linear formula object describing the model, with the response (y) on the left and a ~ operator separating the covariates of interest on the right, separated by + operators.
 #' @param data a data frame containing the variables named in model and correlation arguments.  This is required.
 #' @param correlation an optional corStruct object describing the within-group correlation structure. The correlation structure must be called directly from the nlme pacakge using "nlme::" (see examples below). See the documentation of corClasses for a description of the available corStruct classes. If a grouping variable is to be used, it must be specified in the form argument to the corStruct constructor. Defaults to NULL, corresponding to uncorrelated errors.
-#' @keywords gJLS
+#' @keywords gL
 #' @export
 #' @author David Soave
 #' @import nlme
-#' @import quantreg
-#' @details No missing data are allowed - function will return an "error".  Absolute residuals, are estimated using least absolute deviation (LAD) regression. Outcome (phenotype) must be quantitative and covariate (genotype) may be discrete (categorical) or continuous.
-#' @return a table consisting of test statistics, degrees of freedom and p-vaules for each of the generalized location (gL), scale (gS) and, joint location-scale (gJLS) tests.
-#' @return numDF the gS test statistic numerator degrees of freedom
-#' @return denDF the gS test statistic denominator degrees of freedom
-#' @return gS_p the gS test p-value
+#' @details No missing data are allowed - function will return an "error". Outcome (phenotype) must be quantitative and covariate (genotype) may be discrete (categorical) or continuous.
+#' @return gL_F the gL test statistic
+#' @return numDF the gL test statistic numerator degrees of freedom
+#' @return denDF the gL test statistic denominator degrees of freedom
+#' @return gL_p the gL test p-value
 #' @references Soave, D., Corvol, H., Panjwani, N., Gong, J., Li, W., Boelle, P.Y., Durie, P.R., Paterson, A.D., Rommens, J.M., Strug, L.J., and Sun, L. (2015). A Joint Location-Scale Test Improves Power to Detect Associated SNPs, Gene Sets, and Pathways. American journal of human genetics 97, 125-138.
 #' @references Soave, D. and Sun, L. (2017). A Generalized Levene's Scale Test for Variance Heterogeneity in the Presence of Sample Correlation and Group Uncertainty. Biometrics (Accepted).
-#' @seealso \code{\link{gL_test}}, \code{\link{gS_test}}
+#' @seealso \code{\link{gS_test}}, \code{\link{gJLS_test}}
 #' @examples
 #' #################################################################################
 #' ## Example simulating data from model [i] (Soave et al. 2015 AJHG)
 #' #################################################################################
+#'
 #'
 #' n<-2000  ## total sample size
 #' pA<-0.3  ## MAF
@@ -49,24 +48,25 @@
 #'# This is how genotype probabilities will be analyzed (using a 2 column design matrix)
 #'JLS_test(y,X2,X2)
 
-gJLS_test <-function(model.loc,model.scale,data,correlation=NULL){
+
+gL_test <-function(model, data, correlation=NULL){
 
   ## check if there is missing data
   if(sum(is.na(data)) > 0)  stop("missing value(s) not allowed")
 
-
-  ## Obtain the results from the individual location and scale test
-  gL <- gL_test(model=model.loc,data=data,correlation=correlation)
-  gS <- gS_test(model=model.scale,data=data,correlation=correlation)
-
-  ## JLS test statistic (and corresponding p-value) using Fisher's combined p-value method
-  t_JLS <- -2*log(gL[4])-2*log(gS[4])
-  p_JLS <- 1-pchisq(t_JLS,4)
-
-  ## return the location, scale and JLS p-values
-  dataf=data.frame(rbind(gL,gS,c(t_JLS,4,"NA",p_JLS)))
-  names(dataf)=c("Statistic","df1","df2","p-value")
-  rownames(dataf)=c("gL","gS","gJLS")
-  return(dataf)
-
+  ## Obtain the p-value scale test
+  if(is.null(correlation)) {
+    model=terms(model)
+    model0=model[-(1:2)]
+    fit0<-lm(model0, data = data)
+    fit<-lm(model,data=data)
+    aovfit <- anova(fit0,fit)
+    gS_F<-aovfit[2,5];numDF<-aovfit[2,3];denDF<-aovfit[2,1];gS_p<-aovfit[2,6]
+  } else {
+    fit<-gls(model,data=data,correlation=correlation,method="ML",control=lmeControl(opt = "optim"))
+    aovfit<-anova(fit,Terms=2:dim(anova(fit))[1])
+    gL_F<-aovfit[1,2];numDF<-aovfit[1,1];denDF<-fit$dims$N-fit$dims$p;gL_p<-aovfit[1,3]
+  }
+  ## return the scale p-value
+  return(cbind(gL_F, numDF, denDF, gL_p))
 }

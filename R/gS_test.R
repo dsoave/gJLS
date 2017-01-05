@@ -3,7 +3,7 @@
 #' This function performs the generalized scale (gS) test (Soave and Sun 2017).  This extension of Levene's (1960) test allows for correlated errors and group uncertainty.
 #' @param model a two-sided linear formula object describing the model, with the response (y) on the left and a ~ operator separating the covariates of interest on the right, separated by + operators.
 #' @param data a data frame containing the variables named in model and correlation arguments.  This is required.
-#' @param correlation an optional corStruct object describing the within-group correlation structure. See the documentation of corClasses for a description of the available corStruct classes. If a grouping variable is to be used, it must be specified in the form argument to the corStruct constructor. Defaults to NULL, corresponding to uncorrelated errors.
+#' @param correlation an optional corStruct object describing the within-group correlation structure. The correlation structure must be called directly from the nlme pacakge using "nlme::" (see examples below). See the documentation of corClasses for a description of the available corStruct classes. If a grouping variable is to be used, it must be specified in the form argument to the corStruct constructor. Defaults to NULL, corresponding to uncorrelated errors.
 #' @keywords gS
 #' @export
 #' @author David Soave
@@ -16,6 +16,7 @@
 #' @return gS_p the gS test p-value
 #' @references Soave, D., Corvol, H., Panjwani, N., Gong, J., Li, W., Boelle, P.Y., Durie, P.R., Paterson, A.D., Rommens, J.M., Strug, L.J., and Sun, L. (2015). A Joint Location-Scale Test Improves Power to Detect Associated SNPs, Gene Sets, and Pathways. American journal of human genetics 97, 125-138.
 #' @references Soave, D. and Sun, L. (2017). A Generalized Levene's Scale Test for Variance Heterogeneity in the Presence of Sample Correlation and Group Uncertainty. Biometrics (Accepted).
+#' @seealso \code{\link{gL_test}}, \code{\link{gJLS_test}}
 #' @examples
 #' #################################################################################
 #' ## Example simulating data from model [i] (Soave et al. 2015 AJHG)
